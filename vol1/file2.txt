@@ -1,0 +1,11 @@
+"/*123***/Hello // Cross\n World /* **NachLeCoders"  /* comment line, MUST BE HIDDEN */
+a='"';
+b='/*';
+printf("Comment look like this: /* blabla*/");
+/* comment line, "adsd" MUST BE HIDDEN */
+ /* comment line, MUST BE HIDDEN */
+ /* comment line, MUST BE HIDDEN */
+ /* comment line, MUST BE HIDDEN */
+ /* comment line, MUST BE HIDDEN */
+ /* comment line, MUST BE HIDDEN */
+/* comment line, MUST BE HIDDEN */
