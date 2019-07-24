@@ -3,7 +3,6 @@
 
 char line[MAXLINE];
 
-
 int mygetline( char line[] ){
        int c; /* for ccurrent char */
        int i; /* iterator */
@@ -21,8 +20,8 @@ int mygetline( char line[] ){
 
 
 int htoi(char line[]){
-	int n,i,c,hex;
-	int inhex;
+	int n,i,c,hex,dec;
+	int inhex;/* state flag*/
 	i=inhex=0;
 
 	while(inhex == 0){	/*search hex digit headline "0X"or "0x"*/
@@ -36,8 +35,9 @@ int htoi(char line[]){
 		else
 			++i;
 	}
+
 	
-	for(hex=0;(c=line[i]) != '\0';++i){
+	for(dec=0;(c=line[i]) != '\0';++i){
 		if(inhex){
 			if(c>='a' && c<='f') 
 				n=10+(c - 'a');
@@ -45,16 +45,14 @@ int htoi(char line[]){
 				n=10+(c - 'A');
 			if(c>='0' && c<='9')
 				n=(c - '0');
-			hex=hex * 16 + n; /*multiplication by base equals bit shift */
+			dec=dec * 16 + n; /*multiplication by base equals bit shift */
 		}
 	}
-	return hex;
+	return dec;
 
 }
-       	
-	
 
 void main(){
 	mygetline(line);
-        printf("%d",htoi(line));
+        printf("HEX: %s , DEC: %d",line,htoi(line));
 }

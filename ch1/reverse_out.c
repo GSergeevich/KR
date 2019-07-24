@@ -21,12 +21,10 @@ int mygetline(char line[], int limit){
 	int c,i;
 	i=0;
 	while((c = getchar()) != EOF && c != '\n' && i-1<= limit){
-		line[i]=c;
-		++i;
+		line[i++]=c;
 	}
 	if(c == '\n')
-		line[i]='\n';
-	        ++i;
+		line[i++]='\n';
 	        line[i]='\0';	
 
 	return i;
@@ -36,8 +34,7 @@ void reverse(char s[]){
 	int i,c;
 	i=str_length(s);
 	while(i >=0 ){
-		putchar(s[i]);
-		--i;
+		putchar(s[i--]);
 	}
 	        putchar('\n');
 }
