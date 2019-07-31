@@ -1,7 +1,21 @@
 #include <stdio.h>
 #define NUMBER 15 
 
-unsigned old_setbits(unsigned x,int p,int n,unsigned y){
+void dec2bin(unsigned dec);
+unsigned setbits(unsigned x,int p,int n,unsigned y);
+unsigned int power(int base, int n);
+
+int main(){
+	int i;
+	unsigned number = NUMBER;
+	printf("Before: ");
+	dec2bin(number);
+	number=setbits(number,9,4,number);
+	printf("After:  ");
+	dec2bin(number);
+}
+
+unsigned long_version_setbits(unsigned x,int p,int n,unsigned y){
 	unsigned mask=0;
 	int lastbit=(sizeof(x) * 8) - 1; /* number of last bit from 0 */
 	mask = ~((( ~mask << lastbit - p)) >> (lastbit - (n + 1)) << (p - n - 1));/*create mask for bitwise "and" */
@@ -33,14 +47,4 @@ void dec2bin(unsigned dec){
 		printf("%d",bits[i]);
   	  };
           printf("\n");
-}
-
-int main(){
-	int i;
-	unsigned number = NUMBER;
-	printf("Before: ");
-	dec2bin(number);
-	number=setbits(number,9,4,number);
-	printf("After:  ");
-	dec2bin(number);
 }

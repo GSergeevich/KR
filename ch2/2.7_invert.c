@@ -1,6 +1,20 @@
 #include <stdio.h>
 #define NUMBER 255
 
+void dec2bin(unsigned dec);
+unsigned int power(int base, int n);
+unsigned invert(unsigned x,int p,int n);
+
+int main(){
+	int i;
+	unsigned number = NUMBER;
+	printf("Before: ");
+	dec2bin(number);
+	number=invert(number,9,4);
+	printf("After (inverted):");
+	dec2bin(number);
+}
+
 unsigned invert(unsigned x,int p,int n){
 	return x & ~(~(~0 << n) << (p+1-n)) | (~x & (~(~0 << n) << (p+1-n)));
 }
@@ -23,14 +37,4 @@ void dec2bin(unsigned dec){
 		printf("%d",bits[i]);
   	  };
           printf("\n");
-}
-
-int main(){
-	int i;
-	unsigned number = NUMBER;
-	printf("Before: ");
-	dec2bin(number);
-	number=invert(number,9,4);
-	printf("After (inverted):");
-	dec2bin(number);
 }
