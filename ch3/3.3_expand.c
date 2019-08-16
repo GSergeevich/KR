@@ -1,3 +1,4 @@
+/* expand: expand short hand notation in s1 into string s2. */
 #include <stdio.h>
 #define IN 1
 #define OUT 0

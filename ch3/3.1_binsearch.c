@@ -1,3 +1,4 @@
+/* Binsearch function, by writing minimum tests inside the loop ( at the cost of more outside)*/
 #include <stdio.h>
 #include <time.h>
 
