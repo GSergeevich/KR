@@ -3,16 +3,16 @@
 #include <ctype.h>
 #include "calc.h"
 
-#define MAXOP 100
-
 double vars[MAXVARS];
 int varset[MAXVARS];/* array for "variable setted flags" */
-
+int pos; /* position in s[] */
 
 int main(){
 	int type,index;
 	double op2,recent;
 	char s[MAXOP];
+	line[0] = '\0';
+	pos = 0;
 
 	while((type=getop(s)) != EOF){
 		switch(type){

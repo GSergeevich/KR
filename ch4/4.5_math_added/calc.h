@@ -1,5 +1,6 @@
 #define NUMBER '0'
 #define FUNC 'f'
+#define ERR  'e'
 
 int getop(char []);
 

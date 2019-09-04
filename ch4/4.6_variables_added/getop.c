@@ -15,14 +15,13 @@ int getop(char s[]){
 			;
 		ungetch(c);
 		s[i]='\0';
-		if(strcmp(s,"sin") == 0 || strcmp(s,"pow") == 0 ||strcmp(s,"exp") == 0)
+		if(i == 1){ /* only one char */
+			return s[0];
+		}
+		else if(strcmp(s,"sin") == 0 || strcmp(s,"pow") == 0 ||strcmp(s,"exp") == 0)
 			return FUNC;
-		else
-			--i;
-			while(i>=0){
-			ungetch(s[i--]);
-			}
-			return (c = getch());
+		else  /* unrecognized string */
+			return ERR; /* 'default' section in switch now */
 	}
 
 	if(!isdigit(c) && c != '.' && c != '-'){
