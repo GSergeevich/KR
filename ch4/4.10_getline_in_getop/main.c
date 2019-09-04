@@ -3,8 +3,6 @@
 #include <ctype.h>
 #include "calc.h"
 
-double vars[MAXVARS];
-int varset[MAXVARS];/* array for "variable setted flags" */
 int pos; /* position in s[] */
 
 int main(){
