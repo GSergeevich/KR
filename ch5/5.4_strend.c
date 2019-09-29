@@ -26,7 +26,7 @@ int my_strend(char *s,char *t){
 
 	while(*s-- == *t-- && i-- >= 0);
 		;
-	if(i >=0)
+	if(i >=0) /* mean string "s"  not contain substring "t" */
 		return 0;
 	else 
 		return 1;
