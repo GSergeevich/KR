@@ -11,11 +11,11 @@ int main(){
 	char r[MAXLINE]="catenated";
 	
 	printf("%s\n",t);
-	my_strncpy(s,t,6);
+	my_strncpy(s,t,13);
 	printf("%s\n",t);
 /*	my_strncat(r,t,18);
 	printf("%s\n",t); */
-	printf("%d\n",my_strncmp(t,s,5));
+	printf("%d\n",my_strncmp(t,s,13));
 	printf("%d\n",my_strncmp(r,s,6));
 
 		
