@@ -21,7 +21,7 @@ int mygetline( char *line,int limit ){
        for(i=0;i < limit && (*line = getchar()) != EOF && *line != '\n';line++,i++); /* save last position for NULL */
 
        if(*line == '\n')
-       	   *++line ='\0';
+       	   *line ='\0';
       
        return i; 
 }
