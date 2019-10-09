@@ -1,26 +1,66 @@
 #include <stdio.h>
+#include <string.h>
+
 #define MAXLINES 100 /* number of lines */
 #define DELIMITER ','
 #define MAXLENGTH 100 
 
-int my_parse_lines(char lines[],char delimiter,char *pa[]); /* return number of lines by MYDELIMITER and fill pointers array */
-int writeout(char *pa[],char lines[],int nlines); /* print sorted strings*/
-int mystrcmp(char *s,char *t); /* lexicographically compare the strings*/
+int readlines(char **,char *,int);
+int mygetline(char *,int);
+int my_parse_lines(char *,char ,char **); /* return number of lines by MYDELIMITER and fill pointers array */
+int writeout(char **,char *,int ); /* print sorted strings*/
+int mystrcmp(char *,char *); /* lexicographically compare the strings*/
 void str_qsort(char **,int , int); /* sort array of pointers*/
 void swap(char **,int,int);
 
 int main(){
 	int nlines;
-	char lines[MAXLENGTH]="a,ab,ac,else,ADSDSAD,qwwereee,zz"; 
+/*	char lines[MAXLENGTH]="a,ab,ac,else,ADSDSAD,qwwereee,zz"; */
+	char lines[MAXLENGTH];
 	char * pa[MAXLINES];
-	nlines=my_parse_lines(lines,DELIMITER,pa);
-	writeout(pa,lines,nlines);
-	printf("===> \n");
-	str_qsort(pa,0,nlines ); 
-	writeout(pa,lines,nlines);
-	return 0;
+/*	nlines=my_parse_lines(lines,DELIMITER,pa); */
+	if((nlines=readlines(pa,lines,MAXLINES)) >= 0){        
+		writeout(pa,lines,nlines);
+		printf("===> \n");
+		str_qsort(pa,0,nlines ); 
+		writeout(pa,lines,nlines);
+		return 0;
+	}
+	else{
+		printf("Error");
+		return -1;
+	}
+
 }
 
+int readlines(char *pa[],char *lines,int maxlines){
+	int len,nlines;
+	char *p,line[MAXLENGTH];
+	p=lines;
+	nlines=0; /* number of lines */
+
+	while((len=mygetline(line,MAXLENGTH)) >0){
+		if(nlines >= maxlines )
+			return -1;
+		else{
+			strcpy(p,line);
+			pa[nlines++]=p;
+			p=p+len+1;
+		}
+	}
+	return nlines;
+}
+
+int mygetline( char *line,int limit ){
+       int i;
+
+       for(i=0;i < limit && (*line = getchar()) != EOF && *line != '\n';line++,i++); /* save last position for NULL */
+
+       if(*line == '\n'|| *line == EOF)
+       	   *line ='\0';
+
+       return i;/* return length without ending NULL */
+}
 
 int my_parse_lines(char lines[],char delimiter,char *pa[]){
 	int i,n,c;
@@ -60,10 +100,11 @@ int mystrcmp(char *s1,char *s2){
 	else if(*s1 == '\0') /* s1 is a prefix of s2,therefore lexicography s1 > s2 */
 		return 1;
 
-	else if(*s2 == '\0') /* s2 is prefix of the s1 ,therefore lexicography s2 > s1 */
+	else if(*s2 == '\0') /* s2 is prefix of the s1 ,therefore lexicography s1 < s2 */
 		return 	-1;	
 
-	return *s1 - *s2;
+	return *s1 < *s2 ? 1 : -1; /* lexicographically *s1 > *s2 if it verse in numerical representation */
+
 }
 
 
