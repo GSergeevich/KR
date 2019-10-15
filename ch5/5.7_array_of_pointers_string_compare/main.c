@@ -3,7 +3,7 @@
 
 #define MAXLINES 100 /* number of lines */
 #define DELIMITER ','
-#define MAXLENGTH 100 
+#define MAXLENGTH 10000 
 
 int readlines(char **,char *,int);
 int mygetline(char *,int);
@@ -22,7 +22,7 @@ int main(){
 	if((nlines=readlines(pa,lines,MAXLINES)) >= 0){        
 		writeout(pa,lines,nlines);
 		printf("===> \n");
-		str_qsort(pa,0,nlines ); 
+		str_qsort(pa,0,nlines); 
 		writeout(pa,lines,nlines);
 		return 0;
 	}
@@ -48,7 +48,7 @@ int readlines(char *pa[],char *lines,int maxlines){
 			p=p+len+1;
 		}
 	}
-	return nlines;
+	return nlines -1;
 }
 
 int mygetline( char *line,int limit ){
@@ -119,7 +119,7 @@ void str_qsort(char **arr,int left,int right){ /* sort array of pointers*/
 	swap(arr,left,delimiter); /* */
 	last=left; /* last changed index */
 	for(i=left+1;i <= right;++i){
-		if(mystrcmp(arr[left],arr[i]) > 0) /* if s2 < s1 */
+		if(strcmp(arr[left],arr[i]) > 0) /* if s2 < s1 */
 			swap(arr,++last,i);
 	}
 	swap(arr,left,last);
