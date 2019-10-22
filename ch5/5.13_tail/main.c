@@ -7,18 +7,19 @@
 #define MAXLENGTH 1000
 #define MAXLINES 1000
 
-int mypgetline(char *lineptr[]);
+int readline(char *lineptr[],int maxlines); /* pointer on where store line */
 char *alloc(int len);
-void writeout(char *lineptr[],int tail,int linecount);
+void writeout(char **lineptr,int tail,int linecount);
+int mygetline( char line[] );
 
 
 char allocbuf[MAXLENGTH * MAXLINES];
 char *allocp = allocbuf; /* next free pos */
 
 int main(int argc , char *argv[]){
-	/* char *strings[]={"String1","String2","string3"}; */
-	char *lineptr[MAXLINES];
-	int c,tail,linecount;
+	char *lineptr[MAXLINES]; /* array of pointers */
+	int c,tail,linecount,i;
+	char *p;
 
 	tail=DTAIL; /* default value */	 
 	
@@ -36,48 +37,76 @@ int main(int argc , char *argv[]){
 
 		}
 
-	while(mypgetline(lineptr) >= 0 ){
-		++linecount;
-		++lineptr;
-	}
-	printf("debug ");
-	writeout(lineptr,tail,linecount);
+	
+	linecount=0;
+
+	if((linecount = readline(lineptr,MAXLINES)) >= 0 )
+		writeout(lineptr,tail,linecount);
+
 
 	return 0;
 }	
 
-int mypgetline( char *lineptr[] ){
+int readline( char *lptr[], int maxlines ){
 	int c; /* for ccurrent char */
-	int i; /* iterator */
+	int i,linecount,len;
 	char lbuff[MAXLENGTH];
+	char *p;
 
- 	i=0;
-        while((c = getchar()) != EOF && c != '\n'){
-		lbuff[i] = c;
+	linecount=0;
+
+        while((len = mygetline(lbuff)) >= 0 && linecount < maxlines){
+		lbuff[len++]='\0';
+		p=alloc(len);
+		strcpy(p,lbuff);
+		lptr[linecount++]=p;
+	}
+
+	return linecount;
+}
+
+int mygetline( char line[] ){
+       int c; /* for ccurrent char */
+       int i; /* iterator */
+
+       i=0;
+       while((c = getchar()) != EOF && c != '\n'){
+		line[i] = c;
 		++i;
-       	}
-       	if(c == '\n'){
-		lbuff[i] = c;
-       		++i;
-                lbuff[i] = '\0';
-		*lineptr = strcpy(alloc(i+1),lbuff);
-      		return i;
-	}else
-		return -1;
+       }
+
+       if(c == '\n')
+       		return i;
+	
+       else 
+	       return -1;
+
 }
 
 
 char *alloc(int len){
-	if(allocbuf + (MAXLENGTH * MAXLINES) - allocp >= len){
+	char *tmp;
+	int free;
+	free = (allocbuf + (MAXLENGTH * MAXLINES) - allocp );
+	if(free >= len){
 		allocp += len;
-		return allocp - len;
+		tmp=allocp - len;
+		return tmp;
 	}
-	else
+	else{
 		return 0;
+	}
 }
 	
 
 void writeout(char *lineptr[],int tail,int linecount){
-	while(tail>0 && linecount >0)
-		printf("%s\n",*lineptr--);
+	int max;
+	max=linecount;
+	linecount -= tail;
+	while(linecount < max){
+/*		printf("debug linecount %d\n",linecount);
+		printf("debug tail %d\n",tail); */ 
+		printf("%s\n",lineptr[linecount++]);
+	}
 }
+
